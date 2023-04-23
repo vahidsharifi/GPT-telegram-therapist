@@ -15,22 +15,38 @@ completion = openai.Completion()
 
 # initial_text = [{"role": "system", "content": "You are a casino cashier."}]
 # Creating the main gpt-interactive function
-def ask(question, chat_log=None):
-    prompt_text = [{"role": "system", "content": "You are a master degree student at univesity and you want to write an academic paragraphs about what you are asked for."},
-                   {"role": "user", "content": f"{question}"}]
-    response = openai.ChatCompletion.create(
+
+prompt_text = [{"role": "system", "content": "Create a CBT psychologist character who embodies a strong sense of compassion and empathy. This psychologist should have a relentless curiosity about their clients' problems and characteristics, always asking relevant questions to gain a deep understanding of their situation. As the psychologist gets to know their clients, they should use their knowledge of CBT principles to develop tailored solutions to help their clients overcome their challenges. Write a dialogue between the psychologist and a client to demonstrate how they use their compassion and questioning skills to help the client identify and address their issues."},
+    {"role": "system", "content": "Create a CBT psychologist character who embodies a strong sense of compassion and empathy. This psychologist should have a relentless curiosity about their clients' problems and characteristics, always asking relevant questions to gain a deep understanding of their situation. As the psychologist gets to know their clients, they should use their knowledge of CBT principles to develop tailored solutions to help their clients overcome their challenges. Write a dialogue between the psychologist and a client to demonstrate how they use their compassion and questioning skills to help the client identify and address their issues."}]
+
+def question_prompt_updator(prompt_text, question):
+  prompt_text.insert(-1, {"role": "user", "content": f"{question}"})
+  return prompt_text
+
+def response_prompt_updator(prompt_text, story):
+  prompt_text.insert(-1, {"role": "assistant", "content": f"{story}"})
+  return prompt_text
+
+
+def responser(prompt_text):
+  response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=prompt_text,
         temperature=0.9,
-        max_tokens=1500,
+        max_tokens=500,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0.6,
         stop=["\n"]
     )
-    story = response['choices'][0]['message']['content']
-    return str(story)
+  story = response['choices'][0]['message']['content']
+  return str(story)
 
+def ask(question, prompt_text=prompt_text, chat_log=None):
+    prompt_text = question_prompt_updator(prompt_text, question)
+    story = responser(prompt_text)
+    prompt_text = response_prompt_updator(prompt_text, story)
+    return story
 
 # # Creating a function for chatbot to remember the chat logs
 # def append_interaction_to_chat_log(question, answer, chat_log=None):

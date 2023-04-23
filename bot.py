@@ -4,9 +4,10 @@ import os
 import logging
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from vahidbot import ask # Replace with your chatbot module
+from vahidbot import ask, prompt_text, question_prompt_updator, response_prompt_updator, responser # Replace with your chatbot module
 
 tele_token = os.getenv("TELE_TOKEN")
+prompt_text = prompt_text
 
 # Set up logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -16,7 +17,7 @@ def message_handler(update: Update, context):
     user_message = update.message.text
     
     # Pass user message to your GPT chatbot for processing
-    bot_response = ask(user_message) # Replace with your chatbot's message processing logic
+    bot_response = ask(user_message, prompt_text) # Replace with your chatbot's message processing logic
     
     # Send bot's response back to Telegram user
     update.message.reply_text(bot_response)
