@@ -44,12 +44,14 @@ def emotion_responser(prompt_text):
 
 
 
-'''
-I understood that while loop is not a good aproach for this as sometimes my model doesn't generate dictionary replys
-in this case, it goes through an infinite loop which leads to reaching limit of maximum request per minute for gpt
-'''
+
+
 # def emotion_detector(text):
     
+  '''
+  I understood that while loop is not a good aproach for this as sometimes my model doesn't generate dictionary replys
+  in this case, it goes through an infinite loop which leads to reaching limit of maximum request per minute for gpt
+  '''
 #     while True:
 #       emotion_detection_prompt= [{'role':'system', 'content':"you are a emotion detection service that take a text as an input and return the emotions in the text. if there is no emotion in the text you must return just a python dictionary like: {'No emotion detected':0} . But if there are emotions in the text You return the name of the emotions without any explanation. the output template is a Python dictionary of 5 most probable emotions with their probability like:/n {emotion1:probability1, emotion2:probability2, emotion3:probability3, emotion4:probability4, emotion5:probability5} "}, {"role": "user", "content": f'input : {text}'}]
 
