@@ -28,5 +28,5 @@ def hi(text):
 
     print(a)
 
-    #te
+    #t
     
