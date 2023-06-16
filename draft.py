@@ -29,5 +29,4 @@ def hi(text):
     print(a)
 
     #test
-    # test
     
