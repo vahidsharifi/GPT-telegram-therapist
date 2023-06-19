@@ -27,5 +27,3 @@ def hi(text):
             continue
 
     print(a)
-    
-    #
